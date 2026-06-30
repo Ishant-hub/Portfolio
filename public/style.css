@@ -389,20 +389,110 @@ a {
 .project-image-container {
   flex: 1.2;
   height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: none;
+  background: transparent !important;
+  transition: all 0.5s ease;
 }
 
-.project-image-container img {
+/* Transparent Backgrounds for Projects */
+.bg-plant-patho,
+.bg-text-tidy,
+.bg-aura-luxe,
+.bg-eternal-clone {
+  background: transparent !important;
+}
+
+/* Browser Mockup styling */
+.browser-mockup {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  filter: grayscale(100%);
-  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.6s ease;
 }
 
-.project-item:hover .project-image-container img {
-  transform: scale(1.03);
+.browser-header {
+  height: 26px;
+  background-color: #f1f1f3;
+  border-bottom: 1px solid #e1e1e4;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 12px;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.browser-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.browser-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.browser-dot.red { background-color: #ff5f56; }
+.browser-dot.yellow { background-color: #ffbd2e; }
+.browser-dot.green { background-color: #27c93f; }
+
+.browser-address-bar {
+  flex: 1;
+  background-color: #ffffff;
+  height: 16px;
+  border-radius: 4px;
+  font-size: 9px;
+  color: #8e8e93;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-family: monospace;
+  letter-spacing: 0.5px;
+  border: 1px solid #e1e1e4;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.browser-body {
+  flex: 1;
+  overflow: hidden;
+  background: #ffffff;
+  position: relative;
+}
+
+.browser-body img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+  filter: grayscale(100%);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Hover effects */
+.project-item:hover .browser-mockup {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+}
+
+.project-item:hover .browser-body img {
+  filter: grayscale(0%);
 }
 
 /* Testimonials Section */
