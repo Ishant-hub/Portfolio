@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Ishant Sharma Portfolio</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Reuse main stylesheet styles with admin-specific extensions -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Admin specific stylesheet refinements */
+    .admin-body {
+      background-color: #f3f3f3;
+      padding-top: 130px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .admin-container {
+      max-width: 1100px;
+      width: 90%;
+      margin: 0 auto 60px auto;
+      background: #ffffff;
+      border: 1px solid #000000;
+      padding: 40px;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      border-bottom: 1px solid #000000;
+      padding-bottom: 20px;
+    }
+
+    .admin-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .logout-btn {
+      padding: 8px 16px;
+      background-color: var(--accent-red);
+      color: #000000;
+      border: 1px solid #000000;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .logout-btn:hover {
+      background-color: #ff5744;
+      transform: translateY(-2px);
+    }
+
+    /* Auth Screen */
+    .auth-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--background);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      transition: opacity 0.3s ease;
+    }
+
+    .auth-box {
+      width: 90%;
+      max-width: 380px;
+      background: #ffffff;
+      border: 1px solid #000000;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .auth-box h2 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    .auth-input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-family: var(--font-family);
+      border: 1px solid #000000;
+      margin-bottom: 20px;
+      outline: none;
+      text-align: center;
+    }
+
+    .auth-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary);
+      color: #ffffff;
+      border: 1px solid #000000;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .auth-btn:hover {
+      background-color: #222222;
+    }
+
+    .auth-error {
+      color: var(--accent-red);
+      font-size: 13px;
+      margin-top: 12px;
+      font-weight: 600;
+      display: none;
+    }
+
+    /* Message Table List */
+    .controls-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      padding: 10px 16px;
+      border: 1px solid #000000;
+      font-family: var(--font-family);
+      font-size: 14px;
+      width: 280px;
+      outline: none;
+    }
+
+    .message-count {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--on-surface-variant);
+    }
+
+    .messages-list-wrapper {
+      overflow-x: auto;
+    }
+
+    .messages-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .messages-table th {
+      padding: 12px 16px;
+      border-bottom: 2px solid #000000;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background-color: #ffffff;
+    }
+
+    .messages-table td {
+      padding: 16px;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 14px;
+      line-height: 1.5;
+      vertical-align: top;
+    }
+
+    .messages-table tr:hover {
+      background-color: #fafafa;
+    }
+
+    .msg-date {
+      white-space: nowrap;
+      color: var(--on-surface-variant);
+      font-size: 12px;
+    }
+
+    .msg-email {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .msg-text {
+      white-space: pre-line;
+      max-width: 350px;
+    }
+
+    .delete-msg-btn {
+      padding: 6px 12px;
+      background: transparent;
+      border: 1px solid var(--accent-red);
+      color: var(--accent-red);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .delete-msg-btn:hover {
+      background: var(--accent-red);
+      color: #ffffff;
+    }
+
+    .empty-state {
+      padding: 60px 0;
+      text-align: center;
+      color: var(--on-surface-variant);
+    }
+
+    .empty-state h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- Authentication Box -->
+  <div id="authOverlay" class="auth-overlay">
+    <div class="auth-box">
+      <h2>Access Dashboard</h2>
+      <form id="authForm" autocomplete="off">
+        <input type="password" id="adminPassword" class="auth-input" placeholder="Enter Admin Passcode" required>
+        <button type="submit" class="auth-btn">Verify</button>
+        <div id="authError" class="auth-error">Incorrect passcode. Please try again.</div>
+      </form>
+      <p style="margin-top: 20px; font-size: 12px; color: #777;">Hint: Enter <strong>admin</strong></p>
+    </div>
+  </div>
+
+  <!-- Admin Main Dashboard -->
+  <main class="admin-container hidden" id="dashboardContent">
+    <div class="admin-header">
+      <h1 class="admin-title">Ishant Sharma — Inquiries</h1>
+      <button id="logoutBtn" class="logout-btn">Log Out</button>
+    </div>
+
+    <div class="controls-row">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search by name, email, or content...">
+      <div id="messageCount" class="message-count">Total: 0 submissions</div>
+    </div>
+
+    <div class="messages-list-wrapper">
+      <table class="messages-table" id="messagesTable">
+        <thead>
+          <tr>
+            <th style="width: 15%">Date</th>
+            <th style="width: 20%">Sender</th>
+            <th style="width: 20%">Email</th>
+            <th style="width: 35%">Message</th>
+            <th style="width: 10%">Action</th>
+          </tr>
+        </thead>
+        <tbody id="messagesTableBody">
+          <!-- Populated by JavaScript -->
+        </tbody>
+      </table>
+      <div id="emptyState" class="empty-state hidden">
+        <h3>No Messages Received</h3>
+        <p>Submissions from the contact form will appear here.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>
