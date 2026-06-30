@@ -1,4 +1,59 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // --- Resume Click Handler (Show "Adding soon!") ---
+  const resumeButtons = document.querySelectorAll('.resume-btn');
+  resumeButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showToast('Adding soon!');
+    });
+  });
+
+  function showToast(message) {
+    let toast = document.getElementById('toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'toast';
+      toast.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background-color: #1e1e24;
+        color: #ffffff;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        z-index: 10000;
+        pointer-events: none;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      `;
+      document.body.appendChild(toast);
+    }
+    // Force layout reset
+    toast.style.transition = 'none';
+    toast.style.transform = 'translateX(-50%) translateY(20px)';
+    toast.style.opacity = '0';
+    void toast.offsetHeight;
+    
+    toast.style.transition = 'all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)';
+    toast.innerText = message;
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+    toast.style.opacity = '1';
+    
+    if (window.toastTimeout) {
+      clearTimeout(window.toastTimeout);
+    }
+    window.toastTimeout = setTimeout(() => {
+      toast.style.transform = 'translateX(-50%) translateY(20px)';
+      toast.style.opacity = '0';
+    }, 2500);
+  }
+
   // --- Smooth Scrolling for Navigation ---
   const navLinks = document.querySelectorAll('.nav-item, .footer-nav-link, .hero-action-buttons a, .logo');
   
