@@ -26,5 +26,5 @@ A modern, responsive portfolio website built with a custom design system, intera
    ```bash
    node server.js
    ```
-3. Open `http://localhost:3000` in your web browser.
-4. Access the message panel at `http://localhost:3000/admin.html` (Passcode: `admin`).
+3. Open `http://localhost:3000` in your web browser or visit https://portfolio-six-phi-l9b7u1ng8d.vercel.app/.
+4. Access the message panel at `http://localhost:3000/admin.html` .
